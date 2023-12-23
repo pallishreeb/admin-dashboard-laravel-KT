@@ -16,15 +16,15 @@
     <img src="{{$product->image ? asset('storage/' . $product->image) : asset('/images/no-img.jpg')}}" alt="{{ $product->name }}" class="max-w-full h-auto w-48 h-48 object-cover">
 
     <!-- Change Image Form -->
-    <form method="POST" action="{{ route('products.change-image', $product->id) }}" enctype="multipart/form-data" class="mt-3">
+    <form method="POST" action="{{ route('products.change-image', $product->id) }}" enctype="multipart/form-data" class="mt-3 border">
         @csrf
         @method('PUT')
 
         <!-- Input for Image Change -->
-        <input type="file" name="new_image" accept="image/*" class="mt-2">
+        <input type="file" name="new_image" accept="image/*" class="m-2">
 
         <!-- Submit Button -->
-        <button type="submit" class="mt-2 bg-gray-500 text-white px-4 py-2 rounded">Change Image</button>
+        <button type="submit" class="m-2 bg-gray-500 text-white px-4 py-2 rounded">Change Image</button>
     </form>
 </div>
 
@@ -83,7 +83,7 @@
 </div>
 
 <!-- Change Document Form -->
-<form method="post" action="{{ route('products.change-document', $product->id) }}" enctype="multipart/form-data" class="mt-4">
+<form method="post" action="{{ route('products.change-document', $product->id) }}" enctype="multipart/form-data" class="mt-4 border">
     @csrf
     @method('PUT')
 
@@ -92,7 +92,7 @@
         <input type="file" name="new_document" id="new_document" accept=".pdf,.doc,.docx,.txt">
     </label>
 
-    <button type="submit" class="bg-gray-500 text-white px-4 py-2 mt-2 rounded">Update Document</button>
+    <button type="submit" class="bg-gray-500 text-white px-4 py-2 m-2 rounded">Update Document</button>
 </form>
 
     </div>

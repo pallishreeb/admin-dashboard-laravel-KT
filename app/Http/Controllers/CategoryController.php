@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 class CategoryController extends Controller
 {
     public function index(Request $request)
@@ -16,11 +18,11 @@ class CategoryController extends Controller
             // Add a where clause to filter by category name
             $query->where('name', 'like', '%' . $search . '%');
         }
-    
         $categories = $query->get();
     
         return view('categories.index', compact('categories'));
     }
+
 
     public function create()
     {
@@ -78,12 +80,21 @@ class CategoryController extends Controller
         ]);
     }
     
+
     public function destroy(Category $category)
     {
-        $category->delete();
-
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        try {
+            // Check if the category is linked with other tables
+            if ($category->subcategories()->exists() || $category->products()->exists()) {
+                throw new \Exception('Category is linked with other tables and cannot be deleted.');
+            }
+    
+            $category->delete();
+    
+            return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('categories.index')->with('error', $e->getMessage());
+        }
     }
-
     
 }

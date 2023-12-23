@@ -3,6 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
+<x-flash-message />
     <div class="flex mt-5 justify-center h-screen">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-lg shadow-md p-8">
@@ -33,9 +34,11 @@
                             <span class="ml-2 text-sm">Remember me</span>
                         </label>
 
-                        <a href="#" class="text-blue-500 hover:underline">Forgot Password?</a>
+                        <a href="{{route ('password.request')}}" class="text-blue-500 hover:underline">Forgot Password?</a>
                     </div>
-
+                    <div class="flex items-center justify-between">
+                        <a href="{{ url('/register')}}" class="text-blue-500 hover:underline">Don't have an account? Register here.</a>
+                    </div>
                     <div>
                         <button type="submit" class="w-full bg-gray-700 text-white p-2 rounded-md hover:bg-gray-800"><i class="fas fa-sign-in mr-2"></i>Login</button>
                     </div>

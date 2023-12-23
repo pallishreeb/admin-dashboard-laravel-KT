@@ -7,7 +7,7 @@
         <h1 class="text-xl font-bold">Categories</h1>
         <!-- Filter Dropdown -->
         <div class="flex items-center space-x-2 ml-auto">
-        <a href="{{ route('categories.create') }}" class="mr-3 block p-2 bg-gray-700 text-white hover:bg-gray-800 rounded">Create Category</a>
+        <a href="{{ route('categories.create') }}" class="mr-3 block p-2 bg-green-500 text-white hover:bg-gray-800 rounded">Create Category</a>
         </div>
 
         <!-- Search Box -->

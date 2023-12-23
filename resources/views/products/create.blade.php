@@ -88,9 +88,12 @@
                 </div>
               
                 </div>
-                <div>
-                    <button type="submit" class="w-full bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600">Create Product</button>
-                </div>
+                            <div class="flex items-center space-x-4">
+                <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-gray-600">Create Product</button>
+                
+                <a href="{{ route('products.index') }}" class="w-full bg-gray-500 text-center text-white p-2 rounded-md hover:bg-gray-600">Cancel</a>
+            </div>
+
             </form>
         </div>
     </div>
@@ -127,4 +130,33 @@
             container.appendChild(newField);
         }
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Listen for the category dropdown change
+        document.getElementById('category_id').addEventListener('change', function () {
+            // Get the selected category value
+            var categoryId = this.value;
+
+            // Make an Axios request to fetch subcategories based on the selected category
+            axios.get('/get-subcategories/' + categoryId)
+                .then(function (response) {
+                    console.log(response)
+                    // Clear existing options in the subcategory dropdown
+                    document.getElementById('subcategory_id').innerHTML = '';
+
+                    // Append new options based on the fetched data
+                    response.data.forEach(function (subcategory) {
+                        var option = document.createElement('option');
+                        option.value = subcategory.id;
+                        option.text = subcategory.name;
+                        document.getElementById('subcategory_id').appendChild(option);
+                    });
+                })
+                .catch(function (error) {
+                    console.error('Error fetching subcategories:', error);
+                });
+        });
+    });
+</script>
+
 @endsection

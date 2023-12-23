@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
-
+use Illuminate\Database\QueryException;
 class UserController extends Controller
 {
    // Show Register/Create Form
@@ -25,10 +25,17 @@ public function store(Request $request) {
 
     // Hash Password
     $formFields['password'] = bcrypt($formFields['password']);
-
+    try {
     // Create User
     $user = User::create($formFields);
-
+    }catch (QueryException $e) {
+        if ($e->errorInfo[1] == 1062) { // Check if the error code corresponds to a duplicate entry
+            return redirect()->route('pusers.register')->with('error', 'Email already exists.');
+        } else {
+            // Handle other query exceptions if needed
+            return redirect()->route('users.register')->with('error', 'An error occurred while processing your request.');
+        }
+    }
     // Login
     auth()->login($user);
 

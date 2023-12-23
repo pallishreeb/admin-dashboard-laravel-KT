@@ -27,7 +27,8 @@
                 <!-- Add other fields as needed -->
 
                 <div>
-                    <button type="submit" class="w-full bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600">Update Category</button>
+                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-gray-600">Update Category</button>
+                    <a href="{{ route('categories.index') }}" class="block mt-1 w-full bg-gray-500  text-center text-white p-2 rounded-md hover:bg-gray-600">Cancel</a>
                 </div>
             </form>
         </div>

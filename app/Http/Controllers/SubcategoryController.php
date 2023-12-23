@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 class SubcategoryController extends Controller
 {
     public function index(Request $request)
@@ -24,6 +26,13 @@ class SubcategoryController extends Controller
         $subcategories = $query->get();
     
         return view('subcategories.index', compact('subcategories'));
+    }
+    public function getSubcategories($categoryId)
+    {
+        // Fetch subcategories based on the selected category
+        $subcategories = Subcategory::where('parentcategory_id', $categoryId)->get();
+    
+        return response()->json($subcategories);
     }
     
 
@@ -77,12 +86,24 @@ class SubcategoryController extends Controller
         ]);
     }
     
+
+    
     public function destroy(Subcategory $subcategory)
     {
-        $subcategory->delete();
-
-        return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully.');
+        try {
+            // Check if the subcategory is linked with products
+            if ($subcategory->products()->exists()) {
+                throw new \Exception('Subcategory is linked with products and cannot be deleted.');
+            }
+    
+            $subcategory->delete();
+    
+            return redirect()->route('subcategories.index')->with('success', 'Subcategory deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('subcategories.index')->with('error', $e->getMessage());
+        }
     }
+    
     //active inactive     
     public function toggleStatus(Request $request, Subcategory $subcategory)
     {

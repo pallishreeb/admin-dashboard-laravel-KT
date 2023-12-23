@@ -7,7 +7,7 @@
         <h1 class="text-xl font-bold">Subcategories</h1>
         <!-- Filter Dropdown -->
         <div class="flex items-center space-x-2 ml-auto">
-        <a href="{{ route('subcategories.create') }}" class="mr-3 block p-2 bg-gray-700 text-white hover:bg-gray-800 rounded">Create Subcategory</a>
+        <a href="{{ route('subcategories.create') }}" class="mr-3 block p-2 bg-green-500  text-white hover:bg-gray-800 rounded">Create Subcategory</a>
         </div>
         <!-- Search Box -->
         <form method="get" action="{{ route('subcategories.index') }}">

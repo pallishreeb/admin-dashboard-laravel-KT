@@ -8,7 +8,7 @@
 
         <!-- Filter Dropdown -->
         <div class="flex items-center space-x-2 ml-auto">
-        <a href="{{ route('products.create') }}" class="mr-3 block p-2 bg-gray-700 text-white hover:bg-gray-800 rounded">Create Product</a>
+        <a href="{{ route('products.create') }}" class="mr-3 block p-2 bg-green-500  text-white hover:bg-gray-800 rounded">Create Product</a>
 
         </div>
 

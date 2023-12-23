@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex mt-5 justify-center h-screen">
+    <div class="flex mt-2 justify-center h-screen">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-lg shadow-md p-8">
                 <h1 class="text-2xl font-bold mb-6">Register</h1>

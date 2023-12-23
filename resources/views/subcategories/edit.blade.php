@@ -30,7 +30,8 @@
                 <!-- Add other fields as needed -->
 
                 <div>
-                    <button type="submit" class="w-full bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600">Update Subcategory</button>
+                    <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-gray-600">Update Subcategory</button>
+                    <a href="{{ route('subcategories.index') }}" class="block mt-1 w-full bg-gray-500  text-center text-white p-2 rounded-md hover:bg-gray-600">Cancel</a>
                 </div>
             </form>
         </div>

@@ -6,8 +6,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\DeleteConfirmationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CustomForgotPasswordController;
+use App\Http\Controllers\QueryController;
 
 /*
+
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -49,7 +53,7 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 // Subcategory routes
 // Index
 Route::get('/subcategories', [SubcategoryController::class, 'index'])->name('subcategories.index')->middleware('auth');
-
+Route::get('/get-subcategories/{category}', [SubcategoryController::class, 'getSubcategories']);
 // Create
 Route::get('/subcategories/create', [SubcategoryController::class, 'create'])->name('subcategories.create')->middleware('auth');
 Route::post('/subcategories', [SubcategoryController::class, 'store'])->name('subcategories.store');
@@ -67,6 +71,7 @@ Route::delete('/subcategories/{subcategory}', [SubcategoryController::class, 'de
 // Category routes
 // Index
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index')->middleware('auth');
+
 
 // Create
 Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create')->middleware('auth');
@@ -111,9 +116,21 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 
 // password reset
 
-//Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-//Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// Show forgot password form
+Route::get('/forgot-password', [CustomForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
 
-// Reset Password Routes
-// Route::get('/reset-password/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
-// Route::post('/reset-password', 'ResetPasswordController@reset')->name('password.update');
+// Handle forgot password form submission
+Route::post('/forgot-password', [CustomForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Show reset password form
+Route::get('/reset-password/{token}', [CustomForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Handle reset password form submission
+Route::post('/reset-password', [CustomForgotPasswordController::class, 'reset'])->name('password.update');
+
+
+
+Route::middleware(['auth'])->group(function () {
+    // Add other admin routes as needed
+    Route::get('/queries', [QueryController::class, 'index'])->name('queries.index');
+});
