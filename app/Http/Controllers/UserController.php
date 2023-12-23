@@ -121,6 +121,6 @@ public function destroy(User $user)
 {
     $user->delete();
 
-    return redirect()->route('users.userList')->with('success', 'User deleted successfully.');
+    return redirect()->route('users.list')->with('success', 'User deleted successfully.');
 }
 }
