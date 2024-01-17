@@ -30,7 +30,7 @@ public function store(Request $request) {
     $user = User::create($formFields);
     }catch (QueryException $e) {
         if ($e->errorInfo[1] == 1062) { // Check if the error code corresponds to a duplicate entry
-            return redirect()->route('pusers.register')->with('error', 'Email already exists.');
+            return redirect()->route('users.register')->with('error', 'Email already exists.');
         } else {
             // Handle other query exceptions if needed
             return redirect()->route('users.register')->with('error', 'An error occurred while processing your request.');
